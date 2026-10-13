@@ -1,0 +1,54 @@
+[
+  {
+    "name": "mixed_accounts",
+    "description": "Savings, checking, premium, overdrawn and unknown account types",
+    "inputs": {
+      "ACCOUNTS.DAT": "100001ALICE JONES S000150000\n100002BOB SMITH   C000080000\n100003CAROL WHITE C000250050\n100004DAVE BROWN  P001500000\n100005EVE BLACK   P000500000\n100006FRANK GREEN S00002500p\n100007GRACE HALL  X000010000\n100008HENRY KING  S000000001\n"
+    },
+    "expected": {
+      "stdout": "UNKNOWN ACCOUNT TYPE FOR 100007\nACCOUNTS READ     : 00008\nINTEREST POSTED   : 00007\nACCOUNTS SKIPPED  : 00001\nTOTAL INTEREST    :        61.67 \n",
+      "files": {
+        "POSTED.DAT": "100001 ALICE JONES        3.13      1,503.13\n100002 BOB SMITH          0.00        800.00\n100003 CAROL WHITE        1.04      2,501.54\n100004 DAVE BROWN        50.00     15,050.00\n100005 EVE BLACK         12.50      5,012.50\n100006 FRANK GREEN        5.00-       255.00-\n100008 HENRY KING         0.00          0.01\n"
+      }
+    }
+  },
+  {
+    "name": "empty_file",
+    "description": "No accounts: only the summary is printed",
+    "inputs": {
+      "ACCOUNTS.DAT": ""
+    },
+    "expected": {
+      "stdout": "ACCOUNTS READ     : 00000\nINTEREST POSTED   : 00000\nACCOUNTS SKIPPED  : 00000\nTOTAL INTEREST    :         0.00 \n",
+      "files": {
+        "POSTED.DAT": ""
+      }
+    }
+  },
+  {
+    "name": "checking_threshold",
+    "description": "Checking earns interest only from a balance of 1000.00",
+    "inputs": {
+      "ACCOUNTS.DAT": "200001AT LIMIT    C000100000\n200002JUST UNDER  C000099999\n"
+    },
+    "expected": {
+      "stdout": "ACCOUNTS READ     : 00002\nINTEREST POSTED   : 00002\nACCOUNTS SKIPPED  : 00000\nTOTAL INTEREST    :         0.42 \n",
+      "files": {
+        "POSTED.DAT": "200001 AT LIMIT           0.42      1,000.42\n200002 JUST UNDER         0.00        999.99\n"
+      }
+    }
+  },
+  {
+    "name": "premium_tiers",
+    "description": "Premium rate steps up above 10000.00",
+    "inputs": {
+      "ACCOUNTS.DAT": "300001AT TIER     P001000000\n300002OVER TIER   P001000001\n"
+    },
+    "expected": {
+      "stdout": "ACCOUNTS READ     : 00002\nINTEREST POSTED   : 00002\nACCOUNTS SKIPPED  : 00000\nTOTAL INTEREST    :        58.33 \n",
+      "files": {
+        "POSTED.DAT": "300001 AT TIER           25.00     10,025.00\n300002 OVER TIER         33.33     10,033.34\n"
+      }
+    }
+  }
+]

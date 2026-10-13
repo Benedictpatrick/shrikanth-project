@@ -1,0 +1,28 @@
+[
+  {
+    "name": "weekly_run",
+    "description": "Regular, overtime, bonus tiers, unknown department and a rejected record",
+    "inputs": {
+      "EMPLOYEES.DAT": "00101ADA LOVE  10040005000\n00102BEN OTT   20045502000\n00103CY DREW   30020001550\n00104DI EVANS  99038503125\n00105ED FOX    10000002500\n00106FAY GALE  10060010000\n"
+    },
+    "expected": {
+      "stdout": "REJECTED EMPLOYEE 00105\nEMPLOYEES PAID    : 0005\nEMPLOYEES REJECTED: 0001\nWITH OVERTIME     : 0002\nTOTAL NET PAY     :     8,668.72\n",
+      "files": {
+        "PAYSLIPS.OUT": "00101 ADA LOVE   ENG  2,000.00    100.00    630.00  1,470.00\n00102 BEN OTT    OPS    965.00     24.13    197.83    791.30\n00103 CY DREW    SAL    310.00     23.25     33.33    299.92\n00104 DI EVANS   ???  1,203.13      0.00    240.63    962.50\n00106 FAY GALE   ENG  7,000.00    350.00  2,205.00  5,145.00\n"
+      }
+    }
+  },
+  {
+    "name": "tax_boundaries",
+    "description": "Taxable pay exactly on and just over the 500 and 1500 tax bands",
+    "inputs": {
+      "EMPLOYEES.DAT": "00201BAND ONE  99010005000\n00202BAND TWO  99030005000\n00203OVER TWO  99030005001\n"
+    },
+    "expected": {
+      "stdout": "EMPLOYEES PAID    : 0003\nEMPLOYEES REJECTED: 0000\nWITH OVERTIME     : 0000\nTOTAL NET PAY     :     2,700.21\n",
+      "files": {
+        "PAYSLIPS.OUT": "00201 BAND ONE   ???    500.00      0.00     50.00    450.00\n00202 BAND TWO   ???  1,500.00      0.00    300.00  1,200.00\n00203 OVER TWO   ???  1,500.30      0.00    450.09  1,050.21\n"
+      }
+    }
+  }
+]

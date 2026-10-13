@@ -1,0 +1,15 @@
+[
+  {
+    "name": "three_names",
+    "description": "Mixed case first/last names become 'LAST, FIRST' in upper case",
+    "inputs": {
+      "NAMES.DAT": "Ada       Lovelace    \ngrace     hopper      \nAlan      Turing      \n"
+    },
+    "expected": {
+      "stdout": "NAMES FORMATTED: 0003\n",
+      "files": {
+        "FORMATTED.DAT": "LOVELACE, ADA\nHOPPER, GRACE\nTURING, ALAN\n"
+      }
+    }
+  }
+]
